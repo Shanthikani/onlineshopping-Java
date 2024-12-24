@@ -27,6 +27,7 @@ public class CustomUserBean implements UserDetails{
 	
 	CustomUserBean(Integer id,String username,String email,String password, Collection<? extends GrantedAuthority> authorities)
 	{
+		final long serialVersionUID = -4709084843450077569L; 
 		this.id=id;
 		this.username=username;
 		this.email=email;

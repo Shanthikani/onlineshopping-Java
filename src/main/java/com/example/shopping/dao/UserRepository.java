@@ -10,6 +10,7 @@ import com.example.shopping.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	public Optional<User> findByUsername(String username);
+	public Optional<User> findByEmail(String email);
 	
 	public boolean existsByEmail(String email);
 	public boolean existsByUsername(String username);

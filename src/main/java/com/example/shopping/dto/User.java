@@ -1,5 +1,16 @@
 package com.example.shopping.dto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.example.shopping.entity.Role;
+import com.example.shopping.entity.Roles;
+
+
+
+
 public class User {
 private Integer id;
 private String username;
@@ -33,9 +44,42 @@ public void setPassword(String password) {
 public String[] getRoles() {
 	return roles;
 }
-public void setRoles(String[] roles) {
-	this.roles = roles;
+public void setRoles(String[] list) {
+	this.roles = list;
 }
 
+public static User toDTO(com.example.shopping.entity.User user)
+{
+	User userDTO= new User();
+	userDTO.setId(user.getId());
+	userDTO.setUsername(user.getUsername());
+	userDTO.setEmail(user.getEmail());
+	userDTO.setPassword(user.getPassword());
+	
+	//userDTO.setRoles(user.getRoles().toArray(new String[0])); 
+//	userDTO.setRoles(user.getRoles().stream()
+//            .map(Object::toString)  // Convert elements to String
+//            .toArray(String[]::new));
+	String[] roleArray=new String[user.getRoles().size()];
+	int index=0;
+	for(Object  role:user.getRoles())
+	{
+		roleArray[index]=role.toString();
+		index++;
+	}
+	userDTO.setRoles(roleArray);
+	return userDTO;
 
+}
+public static com.example.shopping.entity.User toEntity(User userDTO)
+{
+	com.example.shopping.entity.User user= new com.example.shopping.entity.User();
+	user.setId(userDTO.getId());
+	user.setUsername(userDTO.getUsername());
+	user.setEmail(userDTO.getEmail());
+	user.setPassword(userDTO.getPassword());
+	List<Role> rolesDTO=Arrays.stream(userDTO.getRoles()).map(roleItem->new Role()).collect(Collectors.toList());
+	user.setRoles(rolesDTO);
+	return user;
+}
 }

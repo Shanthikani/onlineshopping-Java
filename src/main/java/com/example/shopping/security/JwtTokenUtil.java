@@ -36,6 +36,7 @@ public class JwtTokenUtil {
 		try {
 			Jwts.parser()
 				.setSigningKey(jwtTokenSecret)
+				.setAllowedClockSkewSeconds(300)
 				.parseClaimsJws(token);
 			return true;
 		}catch(UnsupportedJwtException exp) {

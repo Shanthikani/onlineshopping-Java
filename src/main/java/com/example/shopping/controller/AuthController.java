@@ -70,7 +70,7 @@ public class AuthController {
 	    System.out.println(authResponse.getToken());
 	    return ResponseEntity.ok(authResponse);
 	  }
-	   catch(BadCredentialsException e)
+	   catch(Exception e)
 	   {
 		  e.printStackTrace();
 	   }
@@ -96,12 +96,12 @@ public class AuthController {
 	    user.setEmail(signupRequest.getEmail());
 	    user.setPassword(encoder.encode(signupRequest.getPassword()));
 	    //System.out.println("Encoded password--- " + user.getPassword());
-	    String[] roleArr = signupRequest.getRoles();
+	    String[] roleList = signupRequest.getRoles();
 	    
-	    if(roleArr == null) {
+	    if(roleList == null) {
 	      roles.add(roleRepository.findByRoleName(Roles.ROLE_USER).get());
 	    }
-	    for(String role: roleArr) {
+	    for(String role: roleList) {
 	      switch(role) {
 	        case "admin":
 	          roles.add(roleRepository.findByRoleName(Roles.ROLE_ADMIN).get());
@@ -117,5 +117,8 @@ public class AuthController {
 	    userRepository.save(user);
 	    return ResponseEntity.ok("User signed up successfully");
 	  }
+	  
+	  
+	  
 
 }
