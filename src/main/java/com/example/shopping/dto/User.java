@@ -62,9 +62,17 @@ public static User toDTO(com.example.shopping.entity.User user)
 //            .toArray(String[]::new));
 	String[] roleArray=new String[user.getRoles().size()];
 	int index=0;
-	for(Object  role:user.getRoles())
+	for(Role  role:user.getRoles())
 	{
-		roleArray[index]=role.toString();
+		roleArray[index]=role.getRoleName().toString();
+		if(roleArray[index]=="ROLE_ADMIN")
+		{
+			roleArray[index]="Admin";
+		}
+		else
+		{
+			roleArray[index]="User";
+		}
 		index++;
 	}
 	userDTO.setRoles(roleArray);

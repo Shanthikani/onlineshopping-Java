@@ -34,7 +34,9 @@ public class SpringJPAUserService implements AppUserService {
 		com.example.shopping.entity.User userEntity = userDAO.findByUsername(username).orElse(null);
 		if(userEntity!=null)
 		{
+			
 			userDTO=User.toDTO(userEntity);
+			System.out.println(userDTO.getEmail());
 			
 		}
 		return userDTO ;
